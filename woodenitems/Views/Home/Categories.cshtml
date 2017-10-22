@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Categories";
+    var ab = ViewBag.IsUser;
+    var num = 2;
+}
+
+<div>
+    <h3>Категории</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td><p>Название</p></td>
+                <td><p>Описание</p></td>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var c in ViewBag.Categories)
+            {
+            <tr onclick="window.document.location='/Home/Category/@c.Id';" style="cursor: pointer">
+                <td><p>@c.Name</p></td>
+                <td><p>@c.Description</p></td>
+                @if (ab)
+                {
+                    num = 3;
+                    <td>
+                        <a href="/Home/DeleteCat/@c.Id" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+                    </td>
+                }
+            </tr>
+        }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan=@num>
+                    <!-- Trigger the modal with a button -->
+                    @if (ab)
+                    {
+                        <button type="button" class="btn btn-info btn-lg btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">+</button>
+                    }
+                    <!-- Modal -->
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Modal Header</h4>
+                                </div>
+                                <div class="modal-body">
+                                @Html.Partial("CreateCategory")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+</div>
+

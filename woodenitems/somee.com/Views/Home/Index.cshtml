@@ -1,0 +1,154 @@
+﻿@{
+    ViewBag.Title = "Index";
+    var ab = ViewBag.IsUser;
+    var c = 0;
+    var k = 0;
+}
+<div>
+    <style>
+        .container1 {
+            position: relative;
+        }
+
+        .image {
+          opacity: 1;
+          display: block;
+          width: 100%;
+          height: auto;
+          transition: .5s ease;
+          backface-visibility: hidden;
+        }
+
+         .overlay {
+          transition: .5s ease;
+          opacity: 0;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%)
+        }
+         .container1:hover .image {
+            opacity: 0.3;
+        }
+        .container1:hover .overlay {
+            opacity: 1;
+        }
+
+        .text {
+            text-align:center;
+            padding: 16px 32px;
+        }
+    </style>
+    
+    <div style="background-image:url('/Content/images/background-01.jpg');
+                height:378px; text-shadow: black 0 0 3px; display:table; border-radius:10px">
+            <article style="color:antiquewhite; text-align:center; vertical-align:middle; display:table-cell;">
+                <h2 style="font-size:30px; font-weight:bold;">Dapibus feugiat vestibulum molestie</h2>
+                <p style="font-size:20px;">Rutrum cras sapien nisl mattis non facilisis sed iaculis at neque nunc facilisis mattis leo ut ornare eros pellentesque blandit turpis vel lacinia sagittis quisque eu faucibus dui.</p>
+                <footer style=""><a href="#">Pellentesque</a></footer>
+            </article>
+    </div>
+
+    <div class="container">
+        <div class="row">
+
+            @foreach (var b in ViewBag.Products)
+            {
+                <div class="col-sm-6" style="margin-top:20px"> 
+                    <div class="panel panel-default"style="margin:auto; width:450px">
+                        <div id="myCarousel" class="carousel slide panel-body" data-ride="carousel" data-interval="5000"
+                                  style="cursor:pointer" data-toggle="modal" data-target="#@k">
+                            <div class="container1">
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner image image" style="height:540px; border-radius: 5px;">
+                                    @foreach (var a in b.Images)
+                                    {
+                                        if (c == 0)
+                                        {
+                                            <div class="item active">
+                                                <img src="@a.ImagePath" />
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="item">
+                                                <img src="@a.ImagePath" />
+                                            </div>
+                                        }
+                                        c++;
+                                    }
+                                    @{
+                                        c = 0;
+                                    }
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <article>
+                                        <h3>@b.Name</h3>
+                                        <p>@b.Description</p>
+                                    </article>
+                                </div>
+                            </div>
+                            </div>
+
+                        </div>
+                            <!-- Modal -->
+                        <div id="@k" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+
+                                    <div class="modal-body">
+                                        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+
+                                            <!-- Wrapper for slides -->
+                                            <div class="carousel-inner" style="border-radius: 5px;">
+
+                                                @foreach (var a in b.Images)
+                                                {
+                                                    if (c == 0)
+                                                    {
+                                                        <div class="item active">
+                                                            <img src="@a.ImagePath" />
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="item">
+                                                            <img src="@a.ImagePath" />
+                                                        </div>
+                                                    }
+                                                    c++;
+                                                }
+                                                @{
+                                                    c = 0;
+                                                }
+                                            </div>
+                                            <!-- Left and right controls -->
+                                            <a class="left carousel-control" href="#@k" data-slide="prev">
+                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="right carousel-control" href="#@k" data-slide="next">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <button style="width:100%" class="btn" onclick="window.document.location='/Category/Product/@b.Id';">
+                                ПОДРОБНЕЕ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                k++;
+            }
+        </div>
+    </div>
+</div>
